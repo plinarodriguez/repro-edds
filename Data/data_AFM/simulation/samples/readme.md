@@ -1,1 +1,0 @@
-All data in here is collected at 1mm above the mouthpiece.
