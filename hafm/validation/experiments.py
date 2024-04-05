@@ -50,3 +50,21 @@ l2=avg2 - 1*max(sd2) #/len(a0) # 3 samples
 l4=avg4 - 1*max(sd4) #/len(a0) # 3 samples
 
 exp_avg = {'time': timeE, 'avg_r0': avg0, 'avg_r1': avg1,'avg_r2': avg2,'avg_r4': avg4}   
+#---------------------------------------------------------------
+# Experiments Data - by timestep
+timesteps = [0.100000001,1.0,2.0,4.0,5.0,10.0,11.0,12.0] #timesteps for data collection
+# Experiments
+timeExp = timeE[75:150]-20
+timeExp = list(timeExp)
+timeExp.index(timesteps[1])
+timeEId = [timeExp.index(0),timeExp.index(timesteps[1]),timeExp.index(timesteps[2]),
+           timeExp.index(timesteps[3]),timeExp.index(timesteps[4]),timeExp.index(timesteps[5]),
+           timeExp.index(timesteps[6]),timeExp.index(timesteps[7])]
+avg_ts_E, sd_ts_E = [], []
+i = 0
+while i < len(timeEId):
+    avg_ts_E.append([avg0[timeEId[i]],avg1[timeEId[i]],avg2[timeEId[i]],avg4[timeEId[i]]])
+    sd_ts_E.append([sd0[timeEId[i]],sd1[timeEId[i]],sd2[timeEId[i]],sd4[timeEId[i]]])
+    i+=1
+
+

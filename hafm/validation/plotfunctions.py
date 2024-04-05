@@ -140,5 +140,87 @@ def exp_ALL_2plots(timeE,avg0,avg1,avg2,avg4,
     pyplot.grid();
     pyplot.xlim(-0.1,15);
     if save == 'YES' :
-        pyplot.savefig('figures/experiments_radiusALL.png', dpi=300, bbox_inches='tight');        
+        pyplot.savefig('figures/experiments_radiusALL.png', dpi=300, bbox_inches='tight');  
+        
+####------------------
+def sim_exp_uncertainties(timeE,avg,u,l,tempS,meanSamplesP,stdSamplesP,r,save,plotexp):
+    pyplot.figure(figsize=(6.4,4.8))
+    pyplot.title('Radius='+ str(r)+'mm');
+    pyplot.xlabel('time [s]')
+    pyplot.ylabel('Temperature Rise')
+    pyplot.plot(tempS['Time [s]'],meanSamplesP, label='Sim Mean', color='white',linewidth='2')
+    pyplot.fill_between(tempS['Time [s]'],meanSamplesP+1*np.max(stdSamplesP),meanSamplesP-1*np.max(stdSamplesP), label='Sim 1SD', color='steelblue')
+    if plotexp == 'YES':
+        pyplot.plot(timeE[75:150]-19.650, avg,linestyle='-',label="Exp Mean",color="black")
+        pyplot.fill_between(timeE[75:150]-19.650,u,l, color="darkorange",label="Exp 1SD")
+    pyplot.grid()
+    pyplot.legend(loc='upper left', facecolor='lightgray');
+    pyplot.xlim(0,12);
+    pyplot.ylim(-0.25,3.25);
+    if save == 'YES' :          
+        pyplot.savefig('figures/sim_exp_uncert_point%i.png'%r, dpi=300,bbox_inches='tight')
+
+def samples10stas(points,tempS1,tempS2,tempS3,tempS4,tempS5,tempS6,tempS7,tempS8,tempS9,tempS10):
+    samples = [tempS1,tempS2,tempS3,tempS4,tempS5,tempS6,tempS7,tempS8,tempS9,tempS10]
+    i=0;
+    meanSamples = []
+    stdSamples = []
+    while i < len(tempS1['Time [s]']):
+        samplesTemp = []
+        for point in points:
+            f=0
+            while f < len(samples):
+                samplesTemp.append((samples[f][point])[i]-298.152039)
+                f+=1
+        meanSamples.append(np.mean(samplesTemp))
+        stdSamples.append(np.std(samplesTemp))
+        i+=1
+    return(meanSamples,stdSamples)
+
+# Plot Simulation and Experiment with Uncertainties for All Point Locations
+def sim_exp_uncertainties_ALL(timeE,avg0,u0,l0,avg1,u1,l1,avg2,u2,l2,avg4,u4,l4,
+                              tempS1,meanSamplesP0,stdSamplesP0,
+                              meanSamplesP1,stdSamplesP1,
+                              meanSamplesP2,stdSamplesP2,
+                              meanSamplesP3,stdSamplesP3,
+                              meanSamplesP4,stdSamplesP4,
+                              save,plotexp,plotSradius):
+    pyplot.figure(figsize=(12,8))
+    pyplot.title('Points 0-4: Uncertainties')
+    if 0 in plotSradius:
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP0, label='Point0-Sim ', color='magenta',linewidth='5')
+        pyplot.fill_between(tempS1['Time [s]'],meanSamplesP0+1*np.max(stdSamplesP0),meanSamplesP0-1*np.max(stdSamplesP0), color='purple',alpha=1.0)
+    if 1 in plotSradius:
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP1, label='Point1-Sim', color='lightgreen',linewidth='5')
+        pyplot.fill_between(tempS1['Time [s]'],meanSamplesP1+1*np.max(stdSamplesP1),meanSamplesP1-1*np.max(stdSamplesP1), color='green',alpha=0.6)
+    if 2 in plotSradius:
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP2, label='Point2-Sim', color='yellow',linewidth='5')
+        pyplot.fill_between(tempS1['Time [s]'],meanSamplesP2+1*np.max(stdSamplesP2),meanSamplesP2-1*np.max(stdSamplesP2), color='orange',alpha=0.6)
+    if 3 in plotSradius:
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP3, label='Point3-Sim', color='white',linewidth='5')
+        pyplot.fill_between(tempS1['Time [s]'],meanSamplesP3+1*np.max(stdSamplesP3),meanSamplesP3-1*np.max(stdSamplesP3), color='black',alpha=0.6)
+    if 4 in plotSradius:
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP4, label='Point4-Sim', color='cyan',linewidth='5')
+        pyplot.fill_between(tempS1['Time [s]'],meanSamplesP4+1*np.max(stdSamplesP4),meanSamplesP4-1*np.max(stdSamplesP4), color='cadetblue')
+
+    if plotexp == 'YES':
+        if 0 in plotSradius:
+            pyplot.plot(timeE[75:150]-19.65, avg0,linestyle='-',label="Point0-Exp",color="darkblue",linewidth='5')
+            pyplot.fill_between(timeE[75:150]-19.65,u0, l0, color="lightblue",alpha=0.5)
+        if 1 in plotSradius:
+            pyplot.plot(timeE[75:150]-19.65, avg1,linestyle='-',label="Point1-Exp",color="black",linewidth='5')
+            pyplot.fill_between(timeE[75:150]-19.65,u1, l1, color="lightgray",alpha=0.75)
+        if 2 in plotSradius:
+            pyplot.plot(timeE[75:150]-19.65, avg2,linestyle='-',label="Point2-Exp",color="red",linewidth='5')
+            pyplot.fill_between(timeE[75:150]-19.65,u2, l2, color="pink",alpha=0.6)
+        if 4 in plotSradius:
+            pyplot.plot(timeE[75:150]-19.65, avg4,linestyle='-',label="Point4-Exp",color="indigo",linewidth='5')
+            pyplot.fill_between(timeE[75:150]-19.65,u4, l4, color="blueviolet",alpha=0.25)
+    pyplot.grid()
+    pyplot.xlabel('time [s]')
+    pyplot.ylabel('Temperature Rise')
+    pyplot.legend(loc='upper left');
+    pyplot.xlim(-0.1,12);
+    if save == 'YES' :     
+        pyplot.savefig('figures/sim_exp_uncert_points0-4.png', dpi=300)
         

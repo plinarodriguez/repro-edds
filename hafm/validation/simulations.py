@@ -51,3 +51,39 @@ maxUQtrans['Monitor Point: Mouthpiece1mm2mmTempX0YZ (Temperature) [K]'],
 maxUQtrans['Monitor Point: Mouthpiece1mm3mmTempX0YZ (Temperature) [K]'],
 maxUQtrans['Monitor Point: Mouthpiece1mm4mmTempX0YZ (Temperature) [K]']],
              ['r=0mm','r=1mm','r=2mm','r=3mm','r=4mm'])
+
+#----------------------------------------
+# Simulation Data by timestep
+# ----------------------------
+### These are the means
+def simMeans_bytime(timesteps,timeEId):
+    headers = tempS1.columns
+    times = pd.DataFrame([tempS1[headers[0]],tempS2[headers[0]],tempS3[headers[0]],tempS4[headers[0]],tempS5[headers[0]],tempS6[headers[0]],tempS7[headers[0]],tempS8[headers[0]],tempS9[headers[0]],tempS10[headers[0]]])                                                                         
+    time_list = [tempS1[headers[0]]]
+    time_list = list(time_list[0][0:])
+    avgTS_ts0 = [meanSamplesP0[timesId[0]],meanSamplesP1[timesId[0]],meanSamplesP2[timesId[0]],meanSamplesP4[timesId[0]]]
+    sdTS_ts0 = [stdSamplesP0[timesId[0]],stdSamplesP1[timesId[0]],stdSamplesP2[timesId[0]],stdSamplesP4[timesId[0]]]
+    # timestep =  2  
+    avgTS_ts2 = [meanSamplesP0[timesId[2]],meanSamplesP1[timesId[2]],meanSamplesP2[timesId[2]],meanSamplesP4[timesId[2]]]
+    sdTS_ts2 = [stdSamplesP0[timesId[2]],stdSamplesP1[timesId[2]],stdSamplesP2[timesId[2]],stdSamplesP4[timesId[2]]]
+    # timestep =  5  
+    avgTS_ts4 = [meanSamplesP0[timesId[4]],meanSamplesP1[timesId[4]],meanSamplesP2[timesId[4]],meanSamplesP4[timesId[4]]]
+    sdTS_ts4 = [stdSamplesP0[timesId[4]],stdSamplesP1[timesId[4]],stdSamplesP2[timesId[4]],stdSamplesP4[timesId[4]]]
+    # timestep =  10  
+    avgTS_ts5 = [meanSamplesP0[timesId[5]],meanSamplesP1[timesId[5]],meanSamplesP2[timesId[5]],meanSamplesP4[timesId[5]]]
+    sdTS_ts5 = [stdSamplesP0[timesId[5]],stdSamplesP1[timesId[5]],stdSamplesP2[timesId[5]],stdSamplesP4[timesId[5]]]
+    # timestep =  11  
+    avgTS_ts6 = [meanSamplesP0[timesId[6]],meanSamplesP1[timesId[6]],meanSamplesP2[timesId[6]],meanSamplesP4[timesId[6]]]
+    sdTS_ts6 = [stdSamplesP0[timesId[6]],stdSamplesP1[timesId[6]],stdSamplesP2[timesId[6]],stdSamplesP4[timesId[6]]]
+    # timestep =  12  
+    avgTS_ts7 = [meanSamplesP0[timesId[7]],meanSamplesP1[timesId[7]],meanSamplesP2[timesId[7]],meanSamplesP4[timesId[7]]]
+    sdTS_ts7 = [stdSamplesP0[timesId[7]],stdSamplesP1[timesId[7]],stdSamplesP2[timesId[7]],stdSamplesP4[timesId[7]]]
+    timesId = [time_list.index(0.00999999978),time_list.index(timesteps[1]),time_list.index(timesteps[2]),time_list.index(timesteps[3]),time_list.index(timesteps[4]),time_list.index(timesteps[5]),
+               time_list.index(timesteps[6]),time_list.index(timesteps[7])]
+    avg_ts_S, sd_ts_S = [], []
+    i = 0
+    while i < len(timeEId):
+        avg_ts_S.append([avg0[timeEId[i]],avg1[timeEId[i]],avg2[timeEId[i]],avg4[timeEId[i]]])
+        sd_ts_S.append([sd0[timeEId[i]],sd1[timeEId[i]],sd2[timeEId[i]],sd4[timeEId[i]]])
+        i+=1
+    
