@@ -1,12 +1,12 @@
-# ABioM Computational Modeling Research Project 
+# Computational Modeling & Simulation Credibility Research 
 
-Welcome to the top-level directory of my graduate research project titled Agile for Biomedical Modeling (ABioM), which focuses on developing and assessing computational models for medical device applications. This project provides essential resources for conducting credibility assessments of two computational models designed for medical device applications. Included are datasets, Python scripts, Jupyter notebooks, and figures crucial for evaluating the models' credibility. It's important to note that the data and analysis provided here specifically focus on post-processing data obtained from computational model predictions.
+Welcome to the top-level directory of my Agile for Biomedical Modeling (ABioM) graduate research project, which focuses on developing and assessing computational models for medical device applications. This project provides essential resources for conducting credibility assessments of two computational models designed for medical device applications. Included are datasets, Python scripts, Jupyter notebooks, and figures crucial for evaluating the models' credibility. It's important to note that the data and analysis provided here specifically focus on post-processing data obtained from computational model predictions.
 
 ## Viewing Jupyter Notebooks
 
 Jupyter Notebook files (.ipynb) included in this repository can be viewed directly on the GitHub browser window. Simply navigate to the desired notebook file and click on it to view its contents.
 
-## Overview
+## Research Overview
 
 This research aims to develop and evaluate computational models for a medical device, the Electronic Drug Delivery System (EDDS), within a specified context of use and for risk-informed decision making. The computational modeling is broken down by system complexity into two components: the Airflow Model (AFM) and the Heated Airflow Model (HAFM), both of which are essential for comprehending, predicting, and establishing trust in the computational model's reliability under medical device operating conditions. The primary objective of these efforts is to compile computational evidence to ensure the reliability of computational predictions for risk-informed decision-making, emphasizing reproducibility and transparency. To achieve this, the repository encompasses post-processing data, Jupyter notebooks for conducting credibility assessments (Verification, Validation, and Uncertainty Quantification (VVUQ)), Python scripts for calculations and data processing, and comprehensive reports summarizing all analyses.
 
