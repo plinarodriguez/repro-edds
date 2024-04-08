@@ -4,7 +4,7 @@ Welcome to the top-level directory of my Agile for Biomedical Modeling (ABioM) g
 
 ## Viewing Jupyter Notebooks
 
-Jupyter Notebook files (.ipynb) included in this repository can be viewed directly on the GitHub browser window. Simply navigate to the desired notebook file and click on it to view its contents.
+Jupyter Notebook files (`.ipynb`) included in this repository can be viewed directly on the GitHub browser window. Simply navigate to the desired notebook file and click on it to view its contents.
 
 ## Research Overview
 
