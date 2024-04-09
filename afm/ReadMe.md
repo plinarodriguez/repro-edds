@@ -1,17 +1,17 @@
-# Model Credibility Assessment/Analysis
+# Airflow Model & Credibility Assessment
+
 
 ## Overview
 
-This repository contains a credibility assessment and analysis for a computational model of an electronic drug delivery system, aimed at evaluating its reliability, accuracy, and validity in predicting operating conditions. The assessment encompasses various aspects, including verification and validation.
+This repository contains a credibility assessment and analysis for a computational model of an electronic drug delivery system, aimed at evaluating its reliability, accuracy, and validity in predicting operating conditions. The assessment encompasses various aspects, including verification and validation. In particular, this directory is focused on the simplified complexity computational model for the airflow only system using ANSYS CFX. 
 
 ## Repository Structure
 
 The repository is structured by analysis type as follows:
 
-- **model_experiments/**: Jupyter Notebook, scripts, data folder, and figures folder which are all necessary for visualizing the nominal and sampling simulation results as well as experiment data visualizations. 
-- **uq/**: Jupyter Notebook, scripts, data folder, and figures folder which are all necessary for conducting the verification analysis (uncertainty qunatification calculations). This includes visualizations.
-- **validation/**: Jupyter Notebook, scripts, data folder, and figures folder which are all necessary for conducting the validation analysis (validation metric comparison). This includes visualizations. 
-- **verification/**: Jupyter Notebook, scripts, data folder, and figures folder which are all necessary for conducting the verification analysis (mesh refinement study & solver tolerance quantification). This includes visualizations. 
+- **model_experiments/**: Jupyter Notebook, scripts, data folder, and figures folder which are all necessary for visualizing the nominal and sampling simulation results as well as experiment data visualizations. This also includes an axial profile analysis, exploration of the heat transfer coefficient, geometry, and mesh details. 
+- **sampling/**: Jupyter Notebook, scripts, data folder, and figures folder which are all necessary for conducting post-processing on the latin hypercube sampling data files. This includes visualizations of model input profiles.  
+- **validation/**: Jupyter Notebook, scripts, data folder, and figures folder which are all necessary for conducting the validation analysis (validation metric comparison). This also includes visualizations, qualitative analysis, and sensitivity analysis. 
 - **README.md**: The main README file providing an overview of the repository and guidance for users.
 - **requirements.txt**: The required Python packages
 
@@ -41,15 +41,11 @@ pip install -r requirements.txt
    
 3. **Results Interpretation**:
    - Examine the generated visualizations in the `figures/` directory.
-   
-## Contributions
 
-Contributions to the credibility assessment and analysis are welcome.
-<!-- 
-## License
-
-This project is licensed under the [MIT License](link-to-license-file). -->
+## Acknowledgements
+This work was funded by the Department of Energy Computational Science Graduate Fellowship (DE-SC0022158).
 
 ## Contact
 
-For inquiries or further information, please contact Paulina Rodriguez at plinarodriguez@gmail.com
+For inquiries or further information, please contact Paulina Rodriguez at plinarodriguez@gmail.com 
+
