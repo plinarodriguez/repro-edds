@@ -60,7 +60,7 @@ Model Risk: less than moderate but more than low
 - Model Influence: Low
 - Decision Consequence: Moderate
 
-![riskAssessment](risk.jpg)
+![riskAssessment](risk.png)
 
 Note the potential for cell damage that can result in more absorption of chemicals. 
 
