@@ -59,7 +59,7 @@ Model Risk: less than moderate but more than low
 Note the potential for cell damage that can result in more absorption of chemicals. 
 
 ## Acknowledgements
-This work was funded by the Department of Energy Computational Science Graduate Fellowship (DE-SC0022158).
+This work was funded by the Department of Energy Computational Science Graduate Fellowship (`DE-SC0022158`).
 
 ## Contact
 
