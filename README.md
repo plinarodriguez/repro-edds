@@ -2,8 +2,6 @@
 
 Welcome to the top-level directory of my Agile for Biomedical Modeling (ABioM) graduate research project, which focuses on developing and assessing computational models for medical device applications. This project provides essential resources for conducting credibility assessments of two computational models designed for medical device applications. Included are datasets, Python scripts, Jupyter notebooks, and figures crucial for evaluating the models' credibility. It's important to note that the data and analysis provided here specifically focus on post-processing data obtained from computational model predictions.
 
-***
-
 ## Acronyms
 
 - **ABioM**: Agile Biomedical Modeling, the project name
@@ -17,8 +15,6 @@ Welcome to the top-level directory of my Agile for Biomedical Modeling (ABioM) g
 ## Viewing Jupyter Notebooks
 
 Jupyter Notebook files (`.ipynb`) included in this repository can be viewed directly on the GitHub browser window. Simply navigate to the desired notebook file and click on it to view its contents.
-
-***
 
 ## Research Overview
 
@@ -59,12 +55,8 @@ The CFD and heat transfer model will characterize the flow field and temperature
 Model Risk: less than moderate but more than low
 - Model Influence: Low
 - Decision Consequence: Moderate
-
-<img src="risk.png" alt="Alt Text" style="width:50%; height:auto;">
-
+<img src="risk.png" alt="Alt Text" style="width:45%; height:auto;">
 Note the potential for cell damage that can result in more absorption of chemicals. 
-
-***
 
 ## Acknowledgements
 This work was funded by the Department of Energy Computational Science Graduate Fellowship (DE-SC0022158).
