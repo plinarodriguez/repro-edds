@@ -43,7 +43,7 @@ pip install -r requirements.txt
    - Examine the generated visualizations in the `figures/` directory.
 
 ## Acknowledgements
-This work was funded by the Department of Energy Computational Science Graduate Fellowship (DE-SC0022158).
+This work was funded by the Department of Energy Computational Science Graduate Fellowship (`DE-SC0022158`).
 
 ## Contact
 
