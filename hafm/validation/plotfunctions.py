@@ -1,6 +1,7 @@
 from matplotlib import pyplot
 import numpy as np
-
+from statsmodels.distributions.empirical_distribution import ECDF
+import scipy.integrate as integrate
 # Power Profiles and SRQ locations
 def powerprof(dataPowerS1,dataPowerS2,dataPowerS3,dataPowerS4,dataPowerS5,dataPowerS6,dataPowerS7,dataPowerS8,dataPowerS9,dataPowerS10, save):
     pyplot.figure(figsize=(14,8))
@@ -223,4 +224,60 @@ def sim_exp_uncertainties_ALL(timeE,avg0,u0,l0,avg1,u1,l1,avg2,u2,l2,avg4,u4,l4,
     pyplot.xlim(-0.1,12);
     if save == 'YES' :     
         pyplot.savefig('figures/sim_exp_uncert_points0-4.png', dpi=300)
+
+# Data for all analysis based on timestep 
+def SimSamplesTempbyTime(tempS1,tempS2,tempS3,tempS4,tempS5,tempS6,tempS7,tempS8,tempS9,tempS10,
+                         timesId):
+    samples = [tempS1,tempS2,tempS3,tempS4,tempS5,tempS6,tempS7,tempS8,tempS9,tempS10]
+    points = ['Monitor Point: Mouthpiece1mm0mmTempX0YZ (Temperature) [K]','Monitor Point: Mouthpiece1mm1mmTempX0YZ (Temperature) [K]',
+              'Monitor Point: Mouthpiece1mm2mmTempX0YZ (Temperature) [K]', 'Monitor Point: Mouthpiece1mm3mmTempX0YZ (Temperature) [K]',
+              'Monitor Point: Mouthpiece1mm4mmTempX0YZ (Temperature) [K]']
+    # time 0,2,5,10,12 
+    times = [timesId[0],timesId[2],timesId[4],timesId[5],timesId[6],timesId[7]]
+    
+    # point0 = [[time0.allsamples], time1, ]
+    tbypoint = []
+    p,t = 0,0
+    for point in points: 
+        tbytime = []
+        for time in times:
+            tbysample = []
+            for sample in samples:
+                value = sample[point][time]-298.152039
+                tbysample.append(value)
+            tbytime.append(tbysample)
+        tbypoint.append(tbytime)
+        p+=1   
+    return(tbypoint)
+##--------------------------------------------
+############ Area Metric
+def area_metricPlots(tbypoint,timeEdiff,exp,normExp,normSim,timeE):
+    radii = [0,1,2,4];
+    for r in radii:
+        # Plots
+        timesteps = [0.0,2.0,5.0,10.0,11.0,12.0]
+        sim = [tbypoint[r][0],tbypoint[r][1],tbypoint[r][2],tbypoint[r][3],tbypoint[r][4],tbypoint[r][5]]
+        time_E = list(timeE[75:150]-20)
+        s = 0 
+        for t in timesteps:   
+            index = time_E.index(t) # find index at time = 5.0[s]    
+            timestep=timeE[index+75]-20
+        #     pyplot.figure(figsize=(15,10)) 
+            pyplot.title('Time = {}, Radius = %i'.format(timestep)%r)
+            pyplot.xlabel('Temperature') 
+            pyplot.ylabel('Probability (CDF)') 
+            ecdfExp = ECDF(exp[s])
+            ecdfExpNorm = ECDF(normExp[s])
+            ecdfExp.y[0] = 0
+            ecdfExp.x[0] = ecdfExp.x[1]
+            ecdfSimNorm = ECDF(normSim[s]) 
+            ecdfSim = ECDF(sim[s])
+            pyplot.step(ecdfExp.x,ecdfExp.y,'--o', where='post',label='Experiments')
+            pyplot.step(ecdfSim.x,ecdfSim.y,'--o', where='post',label='Simulations')
+            pyplot.legend()
+            pyplot.xlim(0, 3.1)
+    #         pyplot.savefig('figures/ecdf_t%i_r%i.png'%t%r, dpi=300);
+            pyplot.show()
+            pyplot.savefig('figures/AreaMetricPoint{r}_Time{timestep}.png', dpi=300)
+            s+=1
         

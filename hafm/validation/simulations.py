@@ -14,6 +14,9 @@ tempS9 = pd.read_csv("Data/data_sim/outputSample9.csv",skiprows = 4)
 tempS10 = pd.read_csv("Data/data_sim/outputSample10.csv",skiprows = 4)
 tempSLab = tempS1.columns # header labels
 
+# Simulation timesteps
+timesteps = [0.100000001,1.0,2.0,4.0,5.0,10.0,11.0,12.0] #timesteps for data collection
+
 ## Create a Dataframe for a Quantative Max Temperaure with uncertainties for 4 radial positions
 i,s,uq = 1,1,[]
 tempS1Max,tempS2Max,tempS3Max,tempS4Max,tempS5Max = [],[],[],[],[]
@@ -52,38 +55,29 @@ maxUQtrans['Monitor Point: Mouthpiece1mm3mmTempX0YZ (Temperature) [K]'],
 maxUQtrans['Monitor Point: Mouthpiece1mm4mmTempX0YZ (Temperature) [K]']],
              ['r=0mm','r=1mm','r=2mm','r=3mm','r=4mm'])
 
-#----------------------------------------
-# Simulation Data by timestep
-# ----------------------------
-### These are the means
-def simMeans_bytime(timesteps,timeEId):
-    headers = tempS1.columns
-    times = pd.DataFrame([tempS1[headers[0]],tempS2[headers[0]],tempS3[headers[0]],tempS4[headers[0]],tempS5[headers[0]],tempS6[headers[0]],tempS7[headers[0]],tempS8[headers[0]],tempS9[headers[0]],tempS10[headers[0]]])                                                                         
-    time_list = [tempS1[headers[0]]]
-    time_list = list(time_list[0][0:])
-    avgTS_ts0 = [meanSamplesP0[timesId[0]],meanSamplesP1[timesId[0]],meanSamplesP2[timesId[0]],meanSamplesP4[timesId[0]]]
-    sdTS_ts0 = [stdSamplesP0[timesId[0]],stdSamplesP1[timesId[0]],stdSamplesP2[timesId[0]],stdSamplesP4[timesId[0]]]
-    # timestep =  2  
-    avgTS_ts2 = [meanSamplesP0[timesId[2]],meanSamplesP1[timesId[2]],meanSamplesP2[timesId[2]],meanSamplesP4[timesId[2]]]
-    sdTS_ts2 = [stdSamplesP0[timesId[2]],stdSamplesP1[timesId[2]],stdSamplesP2[timesId[2]],stdSamplesP4[timesId[2]]]
-    # timestep =  5  
-    avgTS_ts4 = [meanSamplesP0[timesId[4]],meanSamplesP1[timesId[4]],meanSamplesP2[timesId[4]],meanSamplesP4[timesId[4]]]
-    sdTS_ts4 = [stdSamplesP0[timesId[4]],stdSamplesP1[timesId[4]],stdSamplesP2[timesId[4]],stdSamplesP4[timesId[4]]]
-    # timestep =  10  
-    avgTS_ts5 = [meanSamplesP0[timesId[5]],meanSamplesP1[timesId[5]],meanSamplesP2[timesId[5]],meanSamplesP4[timesId[5]]]
-    sdTS_ts5 = [stdSamplesP0[timesId[5]],stdSamplesP1[timesId[5]],stdSamplesP2[timesId[5]],stdSamplesP4[timesId[5]]]
-    # timestep =  11  
-    avgTS_ts6 = [meanSamplesP0[timesId[6]],meanSamplesP1[timesId[6]],meanSamplesP2[timesId[6]],meanSamplesP4[timesId[6]]]
-    sdTS_ts6 = [stdSamplesP0[timesId[6]],stdSamplesP1[timesId[6]],stdSamplesP2[timesId[6]],stdSamplesP4[timesId[6]]]
-    # timestep =  12  
-    avgTS_ts7 = [meanSamplesP0[timesId[7]],meanSamplesP1[timesId[7]],meanSamplesP2[timesId[7]],meanSamplesP4[timesId[7]]]
-    sdTS_ts7 = [stdSamplesP0[timesId[7]],stdSamplesP1[timesId[7]],stdSamplesP2[timesId[7]],stdSamplesP4[timesId[7]]]
-    timesId = [time_list.index(0.00999999978),time_list.index(timesteps[1]),time_list.index(timesteps[2]),time_list.index(timesteps[3]),time_list.index(timesteps[4]),time_list.index(timesteps[5]),
-               time_list.index(timesteps[6]),time_list.index(timesteps[7])]
-    avg_ts_S, sd_ts_S = [], []
-    i = 0
-    while i < len(timeEId):
-        avg_ts_S.append([avg0[timeEId[i]],avg1[timeEId[i]],avg2[timeEId[i]],avg4[timeEId[i]]])
-        sd_ts_S.append([sd0[timeEId[i]],sd1[timeEId[i]],sd2[timeEId[i]],sd4[timeEId[i]]])
-        i+=1
-    
+#####------------
+def sim_bytime(avgTS_ts0,avgTS_ts2,avgTS_ts4,avgTS_ts5,avgTS_ts6,avgTS_ts7,sdTS_ts0,sdTS_ts2,sdTS_ts4,sdTS_ts5,sdTS_ts6,sdTS_ts7):
+    tempE = pd.read_csv('data/data_exp/Raw_Temp_Data/Air_Temperature_Measurements_1W_0.5LPM.csv')
+    timeE = tempE['Time']
+    # Identifying timestep indecies
+    time_E = list(timeE[75:150]-20)
+    indexN = time_E.index(0.0) 
+    normSimR0T0 = np.random.normal(avgTS_ts0[0], sdTS_ts0[0], 100000) 
+    normSimR4T0 = np.random.normal(avgTS_ts0[3], sdTS_ts0[3], 100000) 
+    indexN = time_E.index(2.0) 
+    normSimR0T2 = np.random.normal(avgTS_ts2[0], sdTS_ts2[0], 100000) 
+    normSimR4T2 = np.random.normal(avgTS_ts2[3], sdTS_ts2[3], 100000) 
+    indexN = time_E.index(5.0) 
+    normSimR0T5 = np.random.normal(avgTS_ts4[0], sdTS_ts4[0], 100000) 
+    normSimR4T5 = np.random.normal(avgTS_ts4[3], sdTS_ts4[3], 100000) 
+    indexN = time_E.index(10.0) 
+    normSimR0T10 = np.random.normal(avgTS_ts5[0], sdTS_ts5[0], 100000) 
+    normSimR4T10 = np.random.normal(avgTS_ts5[3], sdTS_ts5[3], 100000) 
+    indexN = time_E.index(11.0) 
+    normSimR0T11 = np.random.normal(avgTS_ts6[0], sdTS_ts6[0], 100000) 
+    normSimR4T11 = np.random.normal(avgTS_ts6[3], sdTS_ts6[3], 100000) 
+    indexN = time_E.index(12.0) 
+    normSimR0T12 = np.random.normal(avgTS_ts7[0], sdTS_ts7[0], 100000) 
+    normSimR4T12 = np.random.normal(avgTS_ts7[3], sdTS_ts7[3], 100000) 
+    normSim = [normSimR0T0,normSimR0T2,normSimR0T5,normSimR0T10,normSimR0T11,normSimR0T12]
+    return(normSim)
