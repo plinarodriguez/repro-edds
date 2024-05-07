@@ -90,7 +90,7 @@ def exp_ALL_2plots(timeE,avg0,avg1,avg2,avg4,
     pyplot.figure(figsize=(20,7))
     pyplot.subplot(1, 2, 1)
     pyplot.title('Experiments')
-    pyplot.xlabel('time [s]')
+    pyplot.xlabel('Time [s]')
     pyplot.ylabel('Temperature Rise')
     pyplot.plot(timeE[75:150]-20, avg0,linestyle='dashdot',label="r=0",color="black",linewidth=4)
     pyplot.plot(timeE[75:150]-20, u0,linestyle='-',color="gray")
@@ -186,22 +186,22 @@ def sim_exp_uncertainties_ALL(timeE,avg0,u0,l0,avg1,u1,l1,avg2,u2,l2,avg4,u4,l4,
                               meanSamplesP3,stdSamplesP3,
                               meanSamplesP4,stdSamplesP4,
                               save,plotexp,plotSradius):
-    pyplot.figure(figsize=(12,8))
-    pyplot.title('Points 0-4: Uncertainties')
+    pyplot.figure(figsize=(6.4,4.8))
+    pyplot.title('Simulations')
     if 0 in plotSradius:
-        pyplot.plot(tempS1['Time [s]'],meanSamplesP0, label='Point0-Sim ', color='magenta',linewidth='5')
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP0, label='r=0mm ', color='magenta',linewidth='2')
         pyplot.fill_between(tempS1['Time [s]'],meanSamplesP0+1*np.max(stdSamplesP0),meanSamplesP0-1*np.max(stdSamplesP0), color='purple',alpha=1.0)
     if 1 in plotSradius:
-        pyplot.plot(tempS1['Time [s]'],meanSamplesP1, label='Point1-Sim', color='lightgreen',linewidth='5')
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP1, label='r=1mm', color='lightgreen',linewidth='2')
         pyplot.fill_between(tempS1['Time [s]'],meanSamplesP1+1*np.max(stdSamplesP1),meanSamplesP1-1*np.max(stdSamplesP1), color='green',alpha=0.6)
     if 2 in plotSradius:
-        pyplot.plot(tempS1['Time [s]'],meanSamplesP2, label='Point2-Sim', color='yellow',linewidth='5')
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP2, label='r=2mm', color='yellow',linewidth='2')
         pyplot.fill_between(tempS1['Time [s]'],meanSamplesP2+1*np.max(stdSamplesP2),meanSamplesP2-1*np.max(stdSamplesP2), color='orange',alpha=0.6)
     if 3 in plotSradius:
-        pyplot.plot(tempS1['Time [s]'],meanSamplesP3, label='Point3-Sim', color='white',linewidth='5')
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP3, label='r=3mm', color='white',linewidth='2')
         pyplot.fill_between(tempS1['Time [s]'],meanSamplesP3+1*np.max(stdSamplesP3),meanSamplesP3-1*np.max(stdSamplesP3), color='black',alpha=0.6)
     if 4 in plotSradius:
-        pyplot.plot(tempS1['Time [s]'],meanSamplesP4, label='Point4-Sim', color='cyan',linewidth='5')
+        pyplot.plot(tempS1['Time [s]'],meanSamplesP4, label='r=4mm', color='cyan',linewidth='2')
         pyplot.fill_between(tempS1['Time [s]'],meanSamplesP4+1*np.max(stdSamplesP4),meanSamplesP4-1*np.max(stdSamplesP4), color='cadetblue')
 
     if plotexp == 'YES':
@@ -218,12 +218,12 @@ def sim_exp_uncertainties_ALL(timeE,avg0,u0,l0,avg1,u1,l1,avg2,u2,l2,avg4,u4,l4,
             pyplot.plot(timeE[75:150]-19.65, avg4,linestyle='-',label="Point4-Exp",color="indigo",linewidth='5')
             pyplot.fill_between(timeE[75:150]-19.65,u4, l4, color="blueviolet",alpha=0.25)
     pyplot.grid()
-    pyplot.xlabel('time [s]')
+    pyplot.xlabel('Time [s]')
     pyplot.ylabel('Temperature Rise')
     pyplot.legend(loc='upper left');
     pyplot.xlim(-0.1,12);
     if save == 'YES' :     
-        pyplot.savefig('figures/sim_exp_uncert_points0-4.png', dpi=300)
+        pyplot.savefig('figures/sim_exp_uncert_points0-4.png', dpi=300,bbox_inches='tight')
 
 # Data for all analysis based on timestep 
 def SimSamplesTempbyTime(tempS1,tempS2,tempS3,tempS4,tempS5,tempS6,tempS7,tempS8,tempS9,tempS10,
@@ -251,15 +251,18 @@ def SimSamplesTempbyTime(tempS1,tempS2,tempS3,tempS4,tempS5,tempS6,tempS7,tempS8
     return(tbypoint)
 ##--------------------------------------------
 ############ Area Metric
-def area_metricPlots(tbypoint,timeEdiff,exp,normExp,normSim,timeE):
+def area_metricPlots(tbypoint,timeEdiff,expS,timeE):
     radii = [0,1,2,4];
     for r in radii:
         # Plots
+        print('r',r)
         timesteps = [0.0,2.0,5.0,10.0,11.0,12.0]
         sim = [tbypoint[r][0],tbypoint[r][1],tbypoint[r][2],tbypoint[r][3],tbypoint[r][4],tbypoint[r][5]]
+        exp = [expS[r][0],expS[r][1],expS[r][2],expS[r][3],expS[r][4],expS[r][5]]
         time_E = list(timeE[75:150]-20)
         s = 0 
         for t in timesteps:   
+            print('t',t)
             index = time_E.index(t) # find index at time = 5.0[s]    
             timestep=timeE[index+75]-20
         #     pyplot.figure(figsize=(15,10)) 
@@ -267,17 +270,19 @@ def area_metricPlots(tbypoint,timeEdiff,exp,normExp,normSim,timeE):
             pyplot.xlabel('Temperature') 
             pyplot.ylabel('Probability (CDF)') 
             ecdfExp = ECDF(exp[s])
-            ecdfExpNorm = ECDF(normExp[s])
+#             ecdfExpNorm = ECDF(normExp[s])
             ecdfExp.y[0] = 0
             ecdfExp.x[0] = ecdfExp.x[1]
-            ecdfSimNorm = ECDF(normSim[s]) 
+#             ecdfSimNorm = ECDF(normSim[s]) 
             ecdfSim = ECDF(sim[s])
             pyplot.step(ecdfExp.x,ecdfExp.y,'--o', where='post',label='Experiments')
             pyplot.step(ecdfSim.x,ecdfSim.y,'--o', where='post',label='Simulations')
             pyplot.legend()
             pyplot.xlim(0, 3.1)
     #         pyplot.savefig('figures/ecdf_t%i_r%i.png'%t%r, dpi=300);
+            times = int(timestep)
+            file_name = 'figures/AreaMetricPoint{}_Time{}.png'.format(r, times)
+            pyplot.savefig(file_name, dpi=300, bbox_inches='tight')
             pyplot.show()
-            pyplot.savefig('figures/AreaMetricPoint{r}_Time{timestep}.png', dpi=300)
             s+=1
         

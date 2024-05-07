@@ -70,7 +70,7 @@ while i < len(timeEId):
 # Experiments Data - by timestep
 # Radial = 0 mm, Temporal = 0,2,5,10,11,12 [s] 
 # indexN = time_E.index(0.0) 
-def exp_bytime(avg0,avg4,sd0,sd4,tempET1,tempET2,tempET3,tempET4):
+def exp_bytime(avg0,avg4,sd0,sd4,tempET1,tempET2,tempET3,tempET4,exp_t):
     # Identifying timestep indecies
     time_E = list(timeEdiff[75:150]-20)
     indexN = time_E.index(0.0) 
@@ -127,9 +127,16 @@ def exp_bytime(avg0,avg4,sd0,sd4,tempET1,tempET2,tempET3,tempET4):
     expR4T12 = [tempET4[0][indexN+75],tempET4[1][indexN+75],tempET4[2][indexN+75]] #4mm
     expRallT12 = [expR0T12,expR1T12,expR2T12,expR4T12]
     expRallTall = [expRallT0,expRallT2,expRallT5,expRallT10,expRallT11,expRallT12]
-    exp  = [expR2T0,expR2T2,expR2T5,expR2T10,expR2T11,expR2T12]
-    normExp = [normExpR0T0,normExpR0T2,normExpR0T5,normExpR0T10,normExpR0T11,normExpR0T12]
-    return(exp, normExp)
+    
+    if(exp_t == 'R0'):
+        exp  = [expR0T0,expR0T2,expR0T5,expR0T10,expR0T11,expR0T12];
+    if(exp_t == 'R1'):
+        exp  = [expR1T0,expR1T2,expR1T5,expR1T10,expR1T11,expR1T12];
+    if(exp_t == 'R2'):
+        exp  = [expR2T0,expR2T2,expR2T5,expR2T10,expR2T11,expR2T12];
+    if(exp_t == 'R4'):
+        exp  = [expR4T0,expR4T2,expR4T5,expR4T10,expR4T11,expR4T12];
+    return(exp)
 
 
 

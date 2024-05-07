@@ -3,7 +3,7 @@ import numpy as np
 
 # Power Profiles and SRQ locations
 def powerprof(dataPowerS1,dataPowerS2,dataPowerS3,dataPowerS4,dataPowerS5,dataPowerS6,dataPowerS7,dataPowerS8,dataPowerS9,dataPowerS10, save):
-    pyplot.figure(figsize=(14,8))
+    pyplot.figure(figsize=(8,5))
     pyplot.title('Applied Power Profiles')
     pyplot.xlabel('Time [s]')
     pyplot.ylabel('Power [W]')
@@ -36,7 +36,7 @@ def sampleplotslabels(point,tempS1,tempS2,tempS3,tempS4,tempS5,tempS6,tempS7,tem
 def sim_exp_pointlabels(timeE,avg,u,l,tempS1,tempS2,tempS3,tempS4,tempS5,
                   tempS6,tempS7,tempS8,tempS9,tempS10,
                   tempSLab,r,point,save,plotexp):
-    pyplot.figure(figsize=(12,8))
+    pyplot.figure(figsize=(6.4,4.8))
     pyplot.xlabel('time [s]')
     pyplot.ylabel('Temperature Rise')
     sampleplotslabels(point,tempS1,tempS2,tempS3,tempS4,tempS5,tempS6,tempS7,tempS8,tempS9,tempS10,tempSLab)
@@ -45,7 +45,7 @@ def sim_exp_pointlabels(timeE,avg,u,l,tempS1,tempS2,tempS3,tempS4,tempS5,
         pyplot.fill_between(timeE[75:150]-19.650,u,l, color="lightgray")
     pyplot.grid()
     pyplot.xlim([-0.5,12])
-    pyplot.title('Simulations (radius='+str(r)+'mm)')
+    pyplot.title('Radius='+str(r)+'mm')
 #     pyplot.title('r='+ str(r)+'mm');
     pyplot.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0);
     if save == 'YES' :
@@ -140,7 +140,42 @@ def exp_ALL_2plots(timeE,avg0,avg1,avg2,avg4,
     pyplot.grid();
     pyplot.xlim(-0.1,15);
     if save == 'YES' :
-        pyplot.savefig('figures/experiments_radiusALL.png', dpi=300, bbox_inches='tight');  
+        pyplot.savefig('figures/experiments_radiusALL.png', dpi=300, bbox_inches='tight');
+        
+# All Experimental Data
+def exp_ALL_1plot(timeE,avg0,avg1,avg2,avg4,
+                   u0,u1,u2,u4,
+                   l0,l1,l2,l4,
+                   tempET1,tempET2,tempET3,tempET4,save):
+#     pyplot.figure(figsize=(20,7))
+    pyplot.title('Experiments')
+    pyplot.xlabel('time [s]')
+    pyplot.ylabel('Temperature Rise')
+    pyplot.plot(timeE[75:150]-20, avg0,linestyle='dashdot',label="r=0",color="black",linewidth=4)
+    pyplot.plot(timeE[75:150]-20, u0,linestyle='-',color="gray")
+    pyplot.plot(timeE[75:150]-20, l0,linestyle='-',color="gray")
+    pyplot.fill_between(timeE[75:150]-20,u0, l0, color="lightgray")
+
+    pyplot.plot(timeE[75:150]-20, avg1,linestyle='dashed',label="r=1",color="black",linewidth=4)
+    pyplot.plot(timeE[75:150]-20, u1,linestyle='-',color="gray")
+    pyplot.plot(timeE[75:150]-20, l1,linestyle='-',color="gray")
+    pyplot.fill_between(timeE[75:150]-20,u1, l1, color="lightgray")
+
+    pyplot.plot(timeE[75:150]-20, avg2,linestyle='-',label="r=2",color="black",linewidth=4)
+    pyplot.plot(timeE[75:150]-20, u2,linestyle='-',color="gray")
+    pyplot.plot(timeE[75:150]-20, l2,linestyle='-',color="gray")
+    pyplot.fill_between(timeE[75:150]-20,u2, l2, color="lightgray")
+
+    pyplot.plot(timeE[75:150]-20, avg4,linestyle='dotted',label="r=4",color="black",linewidth=4)
+    pyplot.plot(timeE[75:150]-20, u4,linestyle='-',color="gray")
+    pyplot.plot(timeE[75:150]-20, l4,linestyle='-',label="1SD",color="gray")
+    pyplot.fill_between(timeE[75:150]-20,u4, l4, color="lightgray")
+
+    pyplot.legend()
+    pyplot.grid()
+    pyplot.xlim(-0.1,15)
+    if save == 'YES' :
+        pyplot.savefig('figures/experiments_radiusALL_uq.png', dpi=300, bbox_inches='tight');
         
 # Plot Simulation and Experiment with Uncertainties for All Point Locations
 def sim_exp_uncertainties_ALL(timeE,avg0,u0,l0,avg1,u1,l1,avg2,u2,l2,avg4,u4,l4,
