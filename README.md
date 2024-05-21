@@ -2,7 +2,7 @@
 
 Welcome to the top-level directory of my Agile for Biomedical Modeling (ABioM) graduate research project, which focuses on developing and assessing computational models for medical device applications. This project provides essential resources for conducting credibility assessments of two computational models designed for medical device applications. Included are datasets, Python scripts, Jupyter notebooks, and figures crucial for evaluating the models' credibility. It's important to note that the data and analysis provided here specifically focus on post-processing data obtained from computational model predictions.
 
-## Acronyms
+## Relevant Acronyms
 
 - **ABioM**: Agile Biomedical Modeling, the project name
 - **AFM**: Airflow Model developed with ANSYS commercial software
